@@ -1,0 +1,17 @@
+%%主程序
+clc;
+tspan=[0,1];
+u0=[1,2];
+h=0.1;
+[t1,u1]=ODEeulers(@dufun,tspan,u0,h);
+u1exact=exp(2*t1);
+u2exact=2*exp(2*t1);
+plot(t1,u1(1,:),'r*',t1,u1(2,:),'b*',t1,u1exact,'ro',t1,u2exact,'bo');
+legend('u1-数值解','u2-数值解','u1-精确解','u2-精确解');
+xlabel('t');ylabel('u');
+figure(2)
+err1=abs(u1exact-u1(1,:));
+err2=abs(u2exact-u1(2,:));
+plot(t1,err1,'r*',t1,err2,'b*');
+legend('u1-误差','u2-误差');
+xlabel('t');ylabel('error');

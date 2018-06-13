@@ -1,0 +1,20 @@
+clear;
+clc;
+a=0;b=1;n=60;
+ua=1;ub=exp(1);
+f=inline('0','x')
+p=inline('1','x')
+r=inline('2*x','x')
+q=inline('2','x')
+[x,U]=two_pointplus(f,p,r,q,a,b,n,ua,ub)
+%u=dsolve('-D2u+2*x*Du+2*u=0','u(0)=1','u(1)=exp(1)','x')
+u=exp(x.^2)'
+plot(x,U,'o',x,u)
+xlabel('x')
+ylabel('u')
+%plot error
+figure(2)
+plot(x,abs(u-U))
+xlabel('x')
+ylabel('error')
+norm(U-u,inf)

@@ -1,0 +1,30 @@
+%步长分别取0.1 0.05 0.01，使用欧拉法误差对比
+clc;
+clf;
+dufun=inline('-30*u');
+tspan=[0,1];
+h1=0.1;
+h2=0.05;
+h3=0.01;
+u0=1;
+[t1,u1]=ODEeuler(dufun,tspan,u0,h1);
+[t2,u2]=ODEeuler(dufun,tspan,u0,h2);
+[t3,u3]=ODEeuler(dufun,tspan,u0,h3);
+t11=0:h1:1;
+uexact11=exp(-30*t11);
+t22=0:h2:1;
+uexact22=exp(-30*t22);
+t33=0:h3:1;
+uexact33=exp(-30*t33);
+err1=abs(uexact11-u1);
+plot(t11,err1,'.-');
+hold on;
+err2=abs(uexact22-u2);
+plot(t22,err2,'.-');
+hold on;
+err3=abs(uexact33-u3);
+plot(t33,err3,'.-');
+legend('h=0.1','h=0.05','h=0.01');
+title('Euler-error');
+xlabel('t');ylabel('u');
+max=norm(err3,inf)
